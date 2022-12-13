@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+  become_user: "root"
+  tasks:
+    - name: Ensure shell recognizes Python3 libraries
+      lineinfile:
+        path: "/home/{{ ace_box_user }}/.bashrc"
+        line: export PATH=/home/{{ ace_box_user }}/.local/bin:$PATH
+    - name: Download ACE CLI
+      get_url:
+        url: https://raw.githubusercontent.com/tobigremmer-dt/on-the-fly-installer-test/main/cli/ace
+        dest: /usr/local/bin/ace
+        mode: "0755"

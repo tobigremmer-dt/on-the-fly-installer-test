@@ -1,0 +1,34 @@
+---
+- hosts: localhost
+  connection: local
+  vars:
+    ace_box_user: "{{ lookup('env','USER') }}"
+    #
+    use_case_ext_src: "https://github.com/dynatrace-ace/ace-box-ext-template.git"
+    use_case_ext_version: "HEAD"
+    use_case_ext_default_name: "my-use-case"
+    #
+  tasks:
+    - ansible.builtin.file:
+        path: /home/{{ ace_box_user }}/.ansible/roles
+        state: directory
+        mode: "0755"
+    - name: Clone external use case
+      ansible.builtin.git:
+        repo: "{{ use_case_ext_src }}"
+        version: "{{ use_case_ext_version }}"
+        dest: "{{ use_case_ext_src | useCaseExtSrcToWorkdir(ace_box_user) }}"
+    - name: Synchronize Use Case role
+      synchronize:
+        src: "{{ use_case_ext_src | useCaseExtSrcToWorkdir(ace_box_user) }}/roles/{{ use_case_ext_default_name }}/"
+        dest: "/home/{{ ace_box_user }}/.ansible/roles/{{ use_case_ext_src | useCaseExtSrcToName }}/"
+    - name: Synchronize roles
+      synchronize:
+        src: "{{ use_case_ext_src | useCaseExtSrcToWorkdir(ace_box_user) }}/roles/"
+        dest: "/home/{{ ace_box_user }}/.ansible/roles/"
+        rsync_opts:
+          - "--exclude={{ use_case_ext_default_name }}"
+    # TBD: Read var override yaml, add block with set-var
+    - include_role:
+        name: "{{ use_case_ext_src | useCaseExtSrcToName }}"
+# /home/ace/.ace/playbooks/source-use-case.yml

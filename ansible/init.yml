@@ -8,6 +8,18 @@
       lineinfile:
         path: "/home/{{ ace_box_user }}/.bashrc"
         line: export PATH=/home/{{ ace_box_user }}/.local/bin:$PATH
+    - name: Install apt packages
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - snapd
+          - python3-jmespath
+          - vim
+          - git
+          - rsync
     - name: Download ACE CLI
       get_url:
         url: https://raw.githubusercontent.com/tobigremmer-dt/on-the-fly-installer-test/main/cli/ace

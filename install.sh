@@ -20,7 +20,7 @@ python3 -m pip install ansible
 # .ace setup
 echo "INIT - Initializing user ACE-Box..."
 mkdir -p /home/$ACE_BOX_USER/.ace/ansible
-curl -sfL https://raw.githubusercontent.com/tobigremmer-dt/on-the-fly-installer-test/main/playbooks/init.yml -o /home/$ACE_BOX_USER/.ace/ansible/init.yml
+curl -sfL https://raw.githubusercontent.com/tobigremmer-dt/on-the-fly-installer-test/main/ansible/init.yml -o /home/$ACE_BOX_USER/.ace/ansible/init.yml
 /home/$ACE_BOX_USER/.local/bin/ansible-playbook /home/$ACE_BOX_USER/.ace/ansible/init.yml --extra-vars "ace_box_user=$ACE_BOX_USER"
 
 ace prepare

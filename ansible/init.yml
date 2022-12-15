@@ -1,14 +1,26 @@
 ---
 - hosts: localhost
   connection: local
-  become: true
-  become_user: "root"
+  vars:
+    ace_box_user: "{{ lookup('env','USER') }}"
+    # ace_inventory_src: https://raw.githubusercontent.com/tobigremmer-dt/on-the-fly-installer-test/main
+    ace_inventory:
+      - src: "{{ ace_inventory_src }}/ansible/enable.yml"
+        dest: "/home/{{ ace_box_user }}/.ace/ansible/enable.yml"
+      - src: "{{ ace_inventory_src }}/ansible/source-use-case.yml"
+        dest: "/home/{{ ace_box_user }}/.ace/ansible/source-use-case.yml"
+      - src: "{{ ace_inventory_src }}/ansible/filter_plugins/ace.py"
+        dest: "/home/{{ ace_box_user }}/.ace/ansible/filter_plugins/ace.py"
   tasks:
     - name: Ensure shell recognizes Python3 libraries
+      become: true
+      become_user: "root"
       lineinfile:
         path: "/home/{{ ace_box_user }}/.bashrc"
         line: export PATH=/home/{{ ace_box_user }}/.local/bin:$PATH
     - name: Install apt packages
+      become: true
+      become_user: "root"
       apt:
         name: "{{ packages }}"
         state: present
@@ -21,7 +33,20 @@
           - git
           - rsync
     - name: Download ACE CLI
+      become: true
+      become_user: "root"
       get_url:
-        url: https://raw.githubusercontent.com/tobigremmer-dt/on-the-fly-installer-test/main/cli/ace
+        url: "{{ ace_inventory_src }}/cli/ace"
         dest: /usr/local/bin/ace
         mode: "0755"
+    - name: Download ACE inventory
+      file:
+        path: "{{ item.dest | dirname }}"
+        state: directory
+        mode: "0755"
+      loop: "{{ ace_inventory }}"
+    - get_url:
+        url: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: "0755"
+      loop: "{{ ace_inventory }}"

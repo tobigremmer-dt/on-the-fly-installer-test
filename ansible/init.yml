@@ -32,13 +32,6 @@
           - vim
           - git
           - rsync
-    - name: Download ACE CLI
-      become: true
-      become_user: "root"
-      get_url:
-        url: "{{ ace_inventory_src }}/cli/ace"
-        dest: /usr/local/bin/ace
-        mode: "0755"
     - name: Download ACE inventory
       file:
         path: "{{ item.dest | dirname }}"

@@ -1,0 +1,4 @@
+# Builds, etc.
+.build/**
+cli/build/**
+*egg-info*

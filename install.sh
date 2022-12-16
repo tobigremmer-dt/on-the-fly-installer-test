@@ -20,7 +20,7 @@ python3 -m pip install ansible
 
 # .ace setup
 echo "INIT - Initializing user ACE-Box..."
-python3 -m pip install python3 -m pip install https://storage.googleapis.com/ace-box-public-roles/ace_cli-0.0.0-py3-none-any.whl
+python3 -m pip install https://storage.googleapis.com/ace-box-public-roles/ace_cli-0.0.0-py3-none-any.whl
 
 mkdir -p /home/$ACE_BOX_USER/.ace/ansible
 curl -sfL $ACE_INVENTORY_SRC/ansible/init.yml -o /home/$ACE_BOX_USER/.ace/ansible/init.yml

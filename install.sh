@@ -2,7 +2,9 @@
 set -e
 
 ACE_BOX_USER="${ACE_BOX_USER:-$USER}"
-ACE_BOX_OPERATOR_SRC="https://storage.googleapis.com/ace-box-public-roles/ace_box-operator-0.0.0.tar.gz"
+
+ACE_BOX_OPERATOR_SRC_DEFAULT="https://storage.googleapis.com/ace-box-public-roles/ace_box-operator-0.0.0.tar.gz"
+ACE_BOX_OPERATOR_SRC="${ACE_BOX_OPERATOR_SRC:-$ACE_BOX_OPERATOR_SRC_DEFAULT}"
 
 # Prevent input prompts by specifying frontend is not interactive
 echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections

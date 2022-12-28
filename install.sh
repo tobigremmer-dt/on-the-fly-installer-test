@@ -21,8 +21,8 @@ python3 -m pip install ansible
 /home/$ACE_BOX_USER/.local/bin/ansible-galaxy collection install $ACE_BOX_OPERATOR_SRC
 /home/$ACE_BOX_USER/.local/bin/ansible-playbook ace_box.operator.init
 
-# TBD: Reload shell?
-exec /bin/sh
+# TBD: Reload shell? Resource .bashrc?
+source /home/$ACE_BOX_USER/.bashrc
 
 # ACE prepare
 /home/$ACE_BOX_USER/.local/bin/ace prepare

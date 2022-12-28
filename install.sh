@@ -17,6 +17,8 @@ sudo apt-get install python3-pip -y
 python3 -m pip --version
 python3 -m pip install --upgrade pip -q
 
+export PATH=/home/ace/.local/bin:$PATH
+
 echo "INIT - Installing Ansible..."
 python3 -m pip install ansible
 

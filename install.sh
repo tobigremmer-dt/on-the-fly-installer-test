@@ -17,18 +17,23 @@ sudo apt-get install python3-pip -y
 python3 -m pip --version
 python3 -m pip install --upgrade pip -q
 
-export PATH=/home/ace/.local/bin:$PATH
+#
+# ace_box.operator.init permanently updates PATH in .bashrc.
+# Additionally, an updated PATH is temporarily exported for 
+# the remainder of the install script or for situations where
+# .bashrc is not sourced.
+#
+export PATH=/home/$ACE_BOX_USER/.local/bin:$PATH
 
 echo "INIT - Installing Ansible..."
 python3 -m pip install ansible
 
-/home/$ACE_BOX_USER/.local/bin/ansible-galaxy collection install $ACE_BOX_OPERATOR_SRC
-/home/$ACE_BOX_USER/.local/bin/ansible-playbook ace_box.operator.init
+ansible-galaxy collection install $ACE_BOX_OPERATOR_SRC
+ansible-playbook ace_box.operator.init
 
-# ACE prepare
-/home/$ACE_BOX_USER/.local/bin/ace prepare
+ace prepare
 
 if [ ! -z "${ACE_BOX_USE_CASE}" ]; then
   echo "INIT - Setting up use case..."
-  /home/$ACE_BOX_USER/.local/bin/ace enable $ACE_BOX_USE_CASE
+  ace enable $ACE_BOX_USE_CASE
 fi

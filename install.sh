@@ -29,7 +29,7 @@ echo "INIT - Installing Ansible..."
 python3 -m pip install ansible
 
 ansible-galaxy collection install $ACE_BOX_OPERATOR_SRC
-ansible-playbook ace_box.operator.init
+ansible-playbook ace_box.operator.init -i localhost,
 
 ace prepare
 

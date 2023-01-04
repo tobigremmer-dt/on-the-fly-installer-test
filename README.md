@@ -3,11 +3,11 @@
 ## Run - current user
 
 ```
-curl -sfL https://raw.githubusercontent.com/tobigremmer-dt/on-the-fly-installer-test/main/install.sh | sh -
+sh -c "$(curl -sSL https://raw.githubusercontent.com/tobigremmer-dt/on-the-fly-installer-test/main/install.sh)"
 ```
 
 ## Run - sudo
 
 ```
-curl -sfL https://raw.githubusercontent.com/tobigremmer-dt/on-the-fly-installer-test/main/install.sh | sudo -i -u <your user> sh -
+sudo -u <your user> sh -c "$(curl -sSL https://raw.githubusercontent.com/tobigremmer-dt/on-the-fly-installer-test/main/install.sh)"
 ```

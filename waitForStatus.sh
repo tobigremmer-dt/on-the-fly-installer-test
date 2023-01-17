@@ -2,8 +2,10 @@
 set -e
 
 ACE_BOX_USER="${ACE_BOX_USER:-$USER}"
+DEFAULT_TIMEOUT=300
 DESIRED_STATUS=$1
-TIMEOUT="${300:-$2}"
+CUSTOM_TIMEOUT=$2
+TIMEOUT="${CUSTOM_TIMEOUT:-$DEFAULT_TIMEOUT}"
 CURRENT_TIME=$(date +%s)
 TIMEOUT_AT=$(($CURRENT_TIME + $TIMEOUT))
 
@@ -26,7 +28,7 @@ getStatus () {
   }
 }
 
-echo "Waiting for status: $DESIRED_STATUS"
+echo "Waiting $TIMEOUT seconds for status: $DESIRED_STATUS"
 getStatus
 
 while [ "$CURRENT_STATUS" != "$DESIRED_STATUS" ]; do

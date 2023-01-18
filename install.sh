@@ -9,6 +9,10 @@ ACE_BOX_OPERATOR_SRC="${ACE_BOX_OPERATOR_SRC:-$ACE_BOX_OPERATOR_SRC_DEFAULT}"
 # Prevent input prompts by specifying frontend is not interactive
 echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections
 
+if [ -z "${ACE_BOX_SKIP_CLOUD_INIT}" ]; then
+  cloud-init status --wait
+fi
+
 echo "INIT - Update apt-get and upgrade already install packages..."
 sudo apt-get update && sudo apt-get dist-upgrade -y
 

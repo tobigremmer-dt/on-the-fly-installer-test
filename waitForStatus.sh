@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+# set -e
 
 ACE_BOX_USER="${ACE_BOX_USER:-$USER}"
 DEFAULT_TIMEOUT=300

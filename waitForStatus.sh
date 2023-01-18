@@ -32,7 +32,7 @@ echo "Waiting $TIMEOUT seconds for status: $DESIRED_STATUS"
 getStatus
 
 while [ "$CURRENT_STATUS" != "$DESIRED_STATUS" ]; do
-  sleep 5
+  sleep 10
   
   CURRENT_TIME=$(date +%s)
   getStatus
